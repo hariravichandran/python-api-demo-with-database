@@ -99,30 +99,6 @@ erDiagram
 ```
 
 API & Data Flow
-```mermaid
-flowchart LR
-  subgraph client["Client (curl / browser / app)"]
-    req["GET /report/customer-orders?customer_id=...&format=json|csv|excel"]
-  end
-
-  req --> apiSvc["FastAPI Aggregation Service\n(listens on 127.0.0.1:8050)\n• Joins across 4 DBs via ATTACH\n• Exports: JSON / CSV / Excel"]
-
-  subgraph dbs["Storage (4 separate SQLite files)"]
-    dbCust[/"customer.db\n(customers)"/]
-    dbOrd[/"order.db\n(orders)"/]
-    dbOL[/"order_line.db\n(order_lines)"/]
-    dbProd[/"product.db\n(products)"/]
-  end
-
-  apiSvc -->|ATTACH + SQL JOIN| dbCust
-  apiSvc -->|ATTACH + SQL JOIN| dbOrd
-  apiSvc -->|ATTACH + SQL JOIN| dbOL
-  apiSvc -->|ATTACH + SQL JOIN| dbProd
-
-  apiSvc --> respJSON[(JSON response)]
-  apiSvc --> respCSV[(CSV file)]
-  apiSvc --> respXLSX[(Excel file)]
-```
 
 ```mermaid
 flowchart LR
