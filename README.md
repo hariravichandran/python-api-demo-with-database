@@ -123,3 +123,28 @@ flowchart LR
   apiSvc --> respCSV[(CSV file)]
   apiSvc --> respXLSX[(Excel file)]
 ```
+
+```mermaid
+flowchart LR
+  subgraph Client["Client"]
+    req["curl / browser / app\n→ GET /report/customer-orders?..."]
+  end
+
+  req --> apiSvc["FastAPI Aggregation Service\n127.0.0.1:8050\n• Joins across 4 DBs\n• Exports JSON / CSV / Excel"]
+
+  subgraph DBs["SQLite Databases"]
+    dbCust[/"customer.db"/]
+    dbOrd[/"order.db"/]
+    dbOL[/"order_line.db"/]
+    dbProd[/"product.db"/]
+  end
+
+  apiSvc --> dbCust
+  apiSvc --> dbOrd
+  apiSvc --> dbOL
+  apiSvc --> dbProd
+
+  apiSvc --> respJSON[(JSON)]
+  apiSvc --> respCSV[(CSV)]
+  apiSvc --> respXLSX[(Excel)]
+```
