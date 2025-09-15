@@ -63,6 +63,7 @@ No orders? You’ll get an empty dataset with headers.
 GitHub natively renders Mermaid diagrams:
 
 Database Schema
+```mermaid
 erDiagram
     CUSTOMER ||--o{ ORDER : places
     ORDER ||--o{ ORDER_LINE : contains
@@ -95,8 +96,10 @@ erDiagram
       INTEGER quantity
       REAL    price
     }
+```
 
 API & Data Flow
+```mermaid
 flowchart LR
     subgraph Client["Client"]
       C1["GET /report/customer-orders?customer_id=...&format=json|csv|excel"]
@@ -121,6 +124,7 @@ flowchart LR
     API --> D2
     API --> D3
     API --> D4
+```
 
 
 ---
