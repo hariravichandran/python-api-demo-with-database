@@ -101,27 +101,25 @@ erDiagram
 API & Data Flow
 ```mermaid
 flowchart LR
-    subgraph Client["Client"]
-      C1["GET /report/customer-orders?customer_id=...&format=json|csv|excel"]
-    end
+  subgraph client["Client (curl / browser / app)"]
+    req["GET /report/customer-orders?customer_id=...&format=json|csv|excel"]
+  end
 
-    C1 --> API
+  req --> apiSvc["FastAPI Aggregation Service\n(listens on 127.0.0.1:8050)\n• Joins across 4 DBs via ATTACH\n• Exports: JSON / CSV / Excel"]
 
-    subgraph API["FastAPI Aggregation Service"]
-      API["/report/customer-orders
-      • Joins across 4 DBs via ATTACH
-      • Exports: JSON / CSV / Excel"]
-    end
+  subgraph dbs["Storage (4 separate SQLite files)"]
+    dbCust[/"customer.db\n(customers)"/]
+    dbOrd[/"order.db\n(orders)"/]
+    dbOL[/"order_line.db\n(order_lines)"/]
+    dbProd[/"product.db\n(products)"/]
+  end
 
-    subgraph DBS["4 SQLite Databases"]
-      D1[/"customer.db"/]
-      D2[/"order.db"/]
-      D3[/"order_line.db"/]
-      D4[/"product.db"/]
-    end
+  apiSvc -->|ATTACH + SQL JOIN| dbCust
+  apiSvc -->|ATTACH + SQL JOIN| dbOrd
+  apiSvc -->|ATTACH + SQL JOIN| dbOL
+  apiSvc -->|ATTACH + SQL JOIN| dbProd
 
-    API --> D1
-    API --> D2
-    API --> D3
-    API --> D4
+  apiSvc --> respJSON[(JSON response)]
+  apiSvc --> respCSV[(CSV file)]
+  apiSvc --> respXLSX[(Excel file)]
 ```
