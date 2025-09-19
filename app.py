@@ -85,4 +85,5 @@ def customer_orders_report(
     raise HTTPException(status_code=400, detail="Unsupported format")
 
 if __name__ == "__main__":
-    uvicorn.run(app, host="127.0.0.1", port=8050)
+    port = int(os.getenv("PORT", "8050"))   # use Render's PORT if set
+    uvicorn.run(app, host="0.0.0.0", port=port)
