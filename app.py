@@ -1,22 +1,26 @@
 #!/usr/bin/env python3
-# Simple aggregation API.
+# Simple aggregation API on a configurable port (Render sets $PORT).
 # Endpoints:
+#   GET /                 → redirects to /docs
+#   GET /health           → {"status":"ok"}
 #   GET /report/customer-orders?customer_id=1&format=json|csv|excel
 #
 # Returns columns: product_id, order_date, product_description, quantity, price, total_amount
 #
-# Dependencies: fastapi, uvicorn, pandas, openpyxl, orjson
-#   pip install fastapi uvicorn pandas openpyxl orjson
+# Dependencies: fastapi, uvicorn, pandas, openpyxl
+#   pip install fastapi uvicorn pandas openpyxl
 
-import io, os, sqlite3
+import os
+import io
+import sqlite3
+import pandas as pd
 from fastapi import FastAPI, HTTPException, Query
 from fastapi.responses import (
-    JSONResponse,           # kept for reference (CSV/Excel paths unaffected)
+    JSONResponse,
     StreamingResponse,
-    ORJSONResponse          # pretty JSON via orjson
+    HTMLResponse,
+    RedirectResponse,
 )
-import orjson               # needed for OPT_INDENT_2
-import pandas as pd
 import uvicorn
 
 DBS = {
@@ -29,7 +33,9 @@ DBS = {
 app = FastAPI(title="Demo Aggregation API")
 
 def fetch_customer_orders(customer_id: int) -> pd.DataFrame:
-    # Use an in-memory SQLite connection and ATTACH the 4 DBs so we can JOIN across files.
+    """
+    ATTACH the 4 SQLite files into a single in-memory connection and JOIN.
+    """
     conn = sqlite3.connect(":memory:")
     cur = conn.cursor()
     for alias, path in DBS.items():
@@ -54,35 +60,37 @@ def fetch_customer_orders(customer_id: int) -> pd.DataFrame:
     conn.close()
     return df
 
+# --- Routes -------------------------------------------------------------------
+
+@app.get("/", include_in_schema=False)
+def root():
+    # Redirect base URL to interactive Swagger docs
+    return RedirectResponse(url="/docs", status_code=307)
+
 @app.get("/health")
 def health():
     return {"status": "ok"}
 
-@app.get("/report/customer-orders", response_class=ORJSONResponse)
+@app.get("/report/customer-orders")
 def customer_orders_report(
     customer_id: int = Query(..., description="Customer number"),
-    format: str = Query("json", pattern="^(json|csv|excel)$", description="json|csv|excel")
+    format: str = Query("json", regex="^(json|csv|excel)$", description="json|csv|excel"),
 ):
     df = fetch_customer_orders(customer_id)
 
     if format == "json":
-        # Pretty-printed JSON (2-space indent) using orjson
-        return ORJSONResponse(
-            content=df.to_dict(orient="records"),
-            option=orjson.OPT_INDENT_2
-        )
+        # Always return a JSON array (empty list if no rows)
+        return JSONResponse(df.to_dict(orient="records"))
 
     if format == "csv":
-        # Return CSV with headers even if empty
         csv_bytes = df.to_csv(index=False).encode("utf-8")
         return StreamingResponse(
             io.BytesIO(csv_bytes),
             media_type="text/csv",
-            headers={"Content-Disposition": f'attachment; filename="customer_{customer_id}_orders.csv"'}
+            headers={"Content-Disposition": f'attachment; filename="customer_{customer_id}_orders.csv"'},
         )
 
     if format == "excel":
-        # Return Excel with headers even if empty
         buf = io.BytesIO()
         with pd.ExcelWriter(buf, engine="openpyxl") as xw:
             df.to_excel(xw, index=False, sheet_name="orders")
@@ -90,12 +98,14 @@ def customer_orders_report(
         return StreamingResponse(
             buf,
             media_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-            headers={"Content-Disposition": f'attachment; filename="customer_{customer_id}_orders.xlsx"'}
+            headers={"Content-Disposition": f'attachment; filename="customer_{customer_id}_orders.xlsx"'},
         )
 
-    # Shouldn’t get here because of the Query pattern
+    # Shouldn't happen due to regex on Query, but keep a guard:
     raise HTTPException(status_code=400, detail="Unsupported format")
 
+# --- Entrypoint ---------------------------------------------------------------
+
 if __name__ == "__main__":
-    port = int(os.getenv("PORT", "8050"))   # use Render's PORT if set
+    port = int(os.getenv("PORT", "8050"))   # Render provides $PORT; local default 8050
     uvicorn.run(app, host="0.0.0.0", port=port)
