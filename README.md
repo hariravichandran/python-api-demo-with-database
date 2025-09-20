@@ -16,7 +16,7 @@ source venv/bin/activate   # Windows: venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
-2. Create Demo Databases
+## 2. Create Demo Databases
 
 Run the setup script once to generate sample data:
 
@@ -33,13 +33,13 @@ order.db (orders)
 
 order_line.db (order lines)
 
-3. Start the API
+## 3. Start the API
 python app.py
 
 
 The API runs on http://127.0.0.1:8050
 
-4. Try it Out
+## 4. Try it Out
 
 JSON output
 
@@ -58,7 +58,7 @@ http://127.0.0.1:8050/report/customer-orders?customer_id=1&format=excel
 
 No orders? You’ll get an empty dataset with headers.
 
-5. Diagrams
+## 5. Diagrams
 
 GitHub natively renders Mermaid diagrams:
 
@@ -98,7 +98,7 @@ erDiagram
     }
 ```
 
-6. API & Data Flow
+## 6. API & Data Flow
 
 ```mermaid
 flowchart LR
@@ -125,7 +125,7 @@ flowchart LR
   apiSvc --> respXLSX[(Excel)]
 ```
 
-7. 🚀 Live Demo
+## 7. 🚀 Live Demo
 
 The API is deployed on **Render (free tier)**:  
 👉 https://python-api-demo-with-database.onrender.com
@@ -152,7 +152,7 @@ When you visit a link, it may take **30–60 seconds** to spin back up before th
 - No orders (customer 999):  
   [https://python-api-demo-with-database.onrender.com/report/customer-orders?customer_id=999&format=json](https://python-api-demo-with-database.onrender.com/report/customer-orders?customer_id=999&format=json)
 
-8. 📦 Local Development
+## 8. 📦 Local Development
 
 ```bash
 # Clone repo and install dependencies
