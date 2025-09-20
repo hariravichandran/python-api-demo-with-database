@@ -98,7 +98,7 @@ erDiagram
     }
 ```
 
-API & Data Flow
+6. API & Data Flow
 
 ```mermaid
 flowchart LR
@@ -124,3 +124,44 @@ flowchart LR
   apiSvc --> respCSV[(CSV)]
   apiSvc --> respXLSX[(Excel)]
 ```
+
+7. 🚀 Live Demo
+
+The API is deployed on **Render (free tier)**:  
+👉 https://python-api-demo-with-database.onrender.com
+
+⚠️ **Note:** On the free tier, the instance “sleeps” after ~15 minutes of inactivity.  
+When you visit a link, it may take **30–60 seconds** to spin back up before the response appears.
+
+### Interactive Documentation
+- **Swagger UI:** [https://python-api-demo-with-database.onrender.com/docs](https://python-api-demo-with-database.onrender.com/docs)  
+- **ReDoc:** [https://python-api-demo-with-database.onrender.com/redoc](https://python-api-demo-with-database.onrender.com/redoc)  
+- **OpenAPI JSON:** [https://python-api-demo-with-database.onrender.com/openapi.json](https://python-api-demo-with-database.onrender.com/openapi.json)  
+- **Health check:** [https://python-api-demo-with-database.onrender.com/health](https://python-api-demo-with-database.onrender.com/health)  
+
+### Example Endpoints
+- JSON (customer 1):  
+  [https://python-api-demo-with-database.onrender.com/report/customer-orders?customer_id=1&format=json](https://python-api-demo-with-database.onrender.com/report/customer-orders?customer_id=1&format=json)
+
+- CSV (customer 1):  
+  [https://python-api-demo-with-database.onrender.com/report/customer-orders?customer_id=1&format=csv](https://python-api-demo-with-database.onrender.com/report/customer-orders?customer_id=1&format=csv)
+
+- Excel (customer 1):  
+  [https://python-api-demo-with-database.onrender.com/report/customer-orders?customer_id=1&format=excel](https://python-api-demo-with-database.onrender.com/report/customer-orders?customer_id=1&format=excel)
+
+- No orders (customer 999):  
+  [https://python-api-demo-with-database.onrender.com/report/customer-orders?customer_id=999&format=json](https://python-api-demo-with-database.onrender.com/report/customer-orders?customer_id=999&format=json)
+
+8. 📦 Local Development
+
+```bash
+# Clone repo and install dependencies
+python -m venv venv
+source venv/bin/activate   # Windows: venv\Scripts\activate
+pip install -r requirements.txt
+
+# Create demo databases
+python setup_db.py
+
+# Run API (localhost:8050 by default)
+python app.py
