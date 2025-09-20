@@ -1,16 +1,21 @@
 #!/usr/bin/env python3
-# Simple aggregation API on port 8050.
+# Simple aggregation API.
 # Endpoints:
 #   GET /report/customer-orders?customer_id=1&format=json|csv|excel
 #
 # Returns columns: product_id, order_date, product_description, quantity, price, total_amount
 #
-# Dependencies: fastapi, uvicorn, pandas, openpyxl
-#   pip install fastapi uvicorn pandas openpyxl
+# Dependencies: fastapi, uvicorn, pandas, openpyxl, orjson
+#   pip install fastapi uvicorn pandas openpyxl orjson
 
-import io, sqlite3
-from fastapi import FastAPI, HTTPException, Query, Response
-from fastapi.responses import JSONResponse, StreamingResponse, PlainTextResponse
+import io, os, sqlite3
+from fastapi import FastAPI, HTTPException, Query
+from fastapi.responses import (
+    JSONResponse,           # kept for reference (CSV/Excel paths unaffected)
+    StreamingResponse,
+    ORJSONResponse          # pretty JSON via orjson
+)
+import orjson               # needed for OPT_INDENT_2
 import pandas as pd
 import uvicorn
 
@@ -53,7 +58,7 @@ def fetch_customer_orders(customer_id: int) -> pd.DataFrame:
 def health():
     return {"status": "ok"}
 
-@app.get("/report/customer-orders")
+@app.get("/report/customer-orders", response_class=ORJSONResponse)
 def customer_orders_report(
     customer_id: int = Query(..., description="Customer number"),
     format: str = Query("json", pattern="^(json|csv|excel)$", description="json|csv|excel")
@@ -61,15 +66,20 @@ def customer_orders_report(
     df = fetch_customer_orders(customer_id)
 
     if format == "json":
-        # Return empty list if no rows
-        return JSONResponse(df.to_dict(orient="records"))
+        # Pretty-printed JSON (2-space indent) using orjson
+        return ORJSONResponse(
+            content=df.to_dict(orient="records"),
+            option=orjson.OPT_INDENT_2
+        )
 
     if format == "csv":
         # Return CSV with headers even if empty
         csv_bytes = df.to_csv(index=False).encode("utf-8")
-        return StreamingResponse(io.BytesIO(csv_bytes),
-                                 media_type="text/csv",
-                                 headers={"Content-Disposition": f'attachment; filename="customer_{customer_id}_orders.csv"'})
+        return StreamingResponse(
+            io.BytesIO(csv_bytes),
+            media_type="text/csv",
+            headers={"Content-Disposition": f'attachment; filename="customer_{customer_id}_orders.csv"'}
+        )
 
     if format == "excel":
         # Return Excel with headers even if empty
@@ -77,9 +87,11 @@ def customer_orders_report(
         with pd.ExcelWriter(buf, engine="openpyxl") as xw:
             df.to_excel(xw, index=False, sheet_name="orders")
         buf.seek(0)
-        return StreamingResponse(buf,
+        return StreamingResponse(
+            buf,
             media_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-            headers={"Content-Disposition": f'attachment; filename="customer_{customer_id}_orders.xlsx"'})
+            headers={"Content-Disposition": f'attachment; filename="customer_{customer_id}_orders.xlsx"'}
+        )
 
     # Shouldn’t get here because of the Query pattern
     raise HTTPException(status_code=400, detail="Unsupported format")
