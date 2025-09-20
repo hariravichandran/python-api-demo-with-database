@@ -41,20 +41,14 @@ The API runs on http://127.0.0.1:8050
 
 ## 4. Try it Out
 
-JSON output
-
+## JSON output
 http://127.0.0.1:8050/report/customer-orders?customer_id=1&format=json
 
-
-CSV download
-
+## CSV download
 http://127.0.0.1:8050/report/customer-orders?customer_id=1&format=csv
 
-
-Excel download
-
+## Excel download
 http://127.0.0.1:8050/report/customer-orders?customer_id=1&format=excel
-
 
 No orders? You’ll get an empty dataset with headers.
 
@@ -62,7 +56,7 @@ No orders? You’ll get an empty dataset with headers.
 
 GitHub natively renders Mermaid diagrams:
 
-Database Schema
+## Database Schema
 ```mermaid
 erDiagram
     CUSTOMER ||--o{ ORDER : places
@@ -125,7 +119,7 @@ flowchart LR
   apiSvc --> respXLSX[(Excel)]
 ```
 
-## 7. 🚀 Live Demo
+## 7. 🚀 Live Demo (render.com)
 
 The API is deployed on **Render (free tier)**:  
 👉 https://python-api-demo-with-database.onrender.com
