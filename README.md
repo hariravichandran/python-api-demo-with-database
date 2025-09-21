@@ -175,7 +175,7 @@ When you visit a link, it may take **30–60 seconds** to spin back up before th
 - Excel (customer 1):  
   [https://python-api-demo-with-database.onrender.com/report/customer-orders?customer_id=1&format=excel](https://python-api-demo-with-database.onrender.com/report/customer-orders?customer_id=1&format=excel)
 
-    Output Excel file should look like [this example CSV file](sample-output/customer_1_orders.xlsx).
+    Output Excel file should look like [this example XLSX file](sample-output/customer_1_orders.xlsx).
 
 - No orders (customer 999):  
   [https://python-api-demo-with-database.onrender.com/report/customer-orders?customer_id=999&format=json](https://python-api-demo-with-database.onrender.com/report/customer-orders?customer_id=999&format=json)
