@@ -170,6 +170,8 @@ When you visit a link, it may take **30–60 seconds** to spin back up before th
 - CSV (customer 1):  
   [https://python-api-demo-with-database.onrender.com/report/customer-orders?customer_id=1&format=csv](https://python-api-demo-with-database.onrender.com/report/customer-orders?customer_id=1&format=csv)
 
+    Output CSV should look like [this example CSV file](sample-output/customer_1_orders.csv).
+
 - Excel (customer 1):  
   [https://python-api-demo-with-database.onrender.com/report/customer-orders?customer_id=1&format=excel](https://python-api-demo-with-database.onrender.com/report/customer-orders?customer_id=1&format=excel)
 
