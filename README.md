@@ -129,6 +129,9 @@ When you visit a link, it may take **30–60 seconds** to spin back up before th
 
 ### Interactive Documentation
 - **Swagger UI:** [https://python-api-demo-with-database.onrender.com/docs](https://python-api-demo-with-database.onrender.com/docs)  
+
+    ![Screenshot of Swagger UI Landing Page](sample-output/Swagger UI Screenshot 1.png)
+
 - **ReDoc:** [https://python-api-demo-with-database.onrender.com/redoc](https://python-api-demo-with-database.onrender.com/redoc)  
 - **OpenAPI JSON:** [https://python-api-demo-with-database.onrender.com/openapi.json](https://python-api-demo-with-database.onrender.com/openapi.json)  
     
@@ -143,7 +146,7 @@ When you visit a link, it may take **30–60 seconds** to spin back up before th
   [https://python-api-demo-with-database.onrender.com/report/customer-orders?customer_id=1&format=json](https://python-api-demo-with-database.onrender.com/report/customer-orders?customer_id=1&format=json)
 
     Response (Pretty Print) should yield these results:
-    ```
+    ```json
     [
       {
         "product_id": 10,
@@ -200,3 +203,4 @@ python setup_db.py
 
 # Run API (localhost:8050 by default)
 python app.py
+```
