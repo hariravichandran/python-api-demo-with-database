@@ -1,0 +1,4 @@
+product_id,order_date,product_description,quantity,price,total_amount
+10,2025-09-14,Widget A,2,9.99,19.98
+11,2025-09-14,Widget B,1,19.5,19.5
+12,2025-09-14,Gadget C,1,49.0,49.0
