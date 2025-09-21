@@ -53,7 +53,7 @@ http://127.0.0.1:8050/report/customer-orders?customer_id=1&format=excel
 No orders? You’ll get an empty dataset with headers.
 
 ## 5. Diagrams
-## Database Schema
+### Database Schema
 ```mermaid
 erDiagram
     CUSTOMER ||--o{ ORDER : places
@@ -89,7 +89,7 @@ erDiagram
     }
 ```
 
-## 6. API & Data Flow
+### API & Data Flow
 
 ```mermaid
 flowchart LR
@@ -116,7 +116,7 @@ flowchart LR
   apiSvc --> respXLSX[(Excel)]
 ```
 
-## 7. 🚀 Live Demo (render.com)
+## 6. 🚀 Live Demo (render.com)
 
 The API is deployed on **Render (free tier)**:  
 👉 https://python-api-demo-with-database.onrender.com
@@ -192,7 +192,7 @@ When you visit a link, it may take **30–60 seconds** to spin back up before th
 
     Output JSON should be empty, i.e., you should see `[]` as the response.
 
-## 8. 📦 Local Development
+## 7. 📦 Local Development
 
 ```bash
 # Clone repo and install dependencies
