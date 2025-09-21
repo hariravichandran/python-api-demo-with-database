@@ -132,6 +132,9 @@ When you visit a link, it may take **30–60 seconds** to spin back up before th
 
     ![Screenshot of Swagger UI Landing Page](sample-output/Swagger UI Screenshot 1.png)
 
+![Swagger UI Screenshot](sample-output/Swagger%20UI%20Screenshot%201.png)
+
+
 - **ReDoc:** [https://python-api-demo-with-database.onrender.com/redoc](https://python-api-demo-with-database.onrender.com/redoc)  
 - **OpenAPI JSON:** [https://python-api-demo-with-database.onrender.com/openapi.json](https://python-api-demo-with-database.onrender.com/openapi.json)  
     
