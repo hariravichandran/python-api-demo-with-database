@@ -53,9 +53,6 @@ http://127.0.0.1:8050/report/customer-orders?customer_id=1&format=excel
 No orders? You’ll get an empty dataset with headers.
 
 ## 5. Diagrams
-
-GitHub natively renders Mermaid diagrams:
-
 ## Database Schema
 ```mermaid
 erDiagram
