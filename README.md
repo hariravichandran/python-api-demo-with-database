@@ -137,35 +137,35 @@ When you visit a link, it may take **30–60 seconds** to spin back up before th
 - JSON (customer 1):  
   [https://python-api-demo-with-database.onrender.com/report/customer-orders?customer_id=1&format=json](https://python-api-demo-with-database.onrender.com/report/customer-orders?customer_id=1&format=json)
 
-Response (Pretty Print) should yield these results:
-```
-[
-  {
-    "product_id": 10,
-    "order_date": "2025-09-14",
-    "product_description": "Widget A",
-    "quantity": 2,
-    "price": 9.99,
-    "total_amount": 19.98
-  },
-  {
-    "product_id": 11,
-    "order_date": "2025-09-14",
-    "product_description": "Widget B",
-    "quantity": 1,
-    "price": 19.5,
-    "total_amount": 19.5
-  },
-  {
-    "product_id": 12,
-    "order_date": "2025-09-14",
-    "product_description": "Gadget C",
-    "quantity": 1,
-    "price": 49,
-    "total_amount": 49
-  }
-]
-```
+    Response (Pretty Print) should yield these results:
+    ```
+    [
+      {
+        "product_id": 10,
+        "order_date": "2025-09-14",
+        "product_description": "Widget A",
+        "quantity": 2,
+        "price": 9.99,
+        "total_amount": 19.98
+      },
+      {
+        "product_id": 11,
+        "order_date": "2025-09-14",
+        "product_description": "Widget B",
+        "quantity": 1,
+        "price": 19.5,
+        "total_amount": 19.5
+      },
+      {
+        "product_id": 12,
+        "order_date": "2025-09-14",
+        "product_description": "Gadget C",
+        "quantity": 1,
+        "price": 49,
+        "total_amount": 49
+      }
+    ]
+    ```
 
 - CSV (customer 1):  
   [https://python-api-demo-with-database.onrender.com/report/customer-orders?customer_id=1&format=csv](https://python-api-demo-with-database.onrender.com/report/customer-orders?customer_id=1&format=csv)
