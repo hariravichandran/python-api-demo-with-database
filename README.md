@@ -129,19 +129,21 @@ When you visit a link, it may take **30–60 seconds** to spin back up before th
 
 ### Interactive Documentation
 - **Swagger UI:** [https://python-api-demo-with-database.onrender.com/docs](https://python-api-demo-with-database.onrender.com/docs)  
+    #### Swagger UI - Landing Screen
+    ![Swagger UI Screenshot](sample-output/Swagger%20UI%20Screenshot%201.png)
+    #### Swagger UI - Endpoint #1 - Health
+    ![Swagger UI Endpoint 1 - Health](sample-output/Swagger%20UI%20Endpoint%201%20-%20Health.png)
+    #### Swagger UI - Endpoint #2 - Report Customer Orders
+    ![Swagger UI Endpoint 2 - Report Customer Orders Part 1](sample-output/Swagger%20UI%20Endpoint%202%20-%20Report%20Customer%20Orders%20Part%201.png)
+    ![Swagger UI Endpoint 2 - Report Customer Orders Part 2](sample-output/Swagger%20UI%20Endpoint%202%20-%20Report%20Customer%20Orders%20Part%202.png)
 
-    ![Screenshot of Swagger UI Landing Page](sample-output/Swagger UI Screenshot 1.png)
-
-![Swagger UI Screenshot](sample-output/Swagger%20UI%20Screenshot%201.png)
-
-
-- **ReDoc:** [https://python-api-demo-with-database.onrender.com/redoc](https://python-api-demo-with-database.onrender.com/redoc)  
-- **OpenAPI JSON:** [https://python-api-demo-with-database.onrender.com/openapi.json](https://python-api-demo-with-database.onrender.com/openapi.json)  
-    
+- **ReDoc:** [https://python-api-demo-with-database.onrender.com/redoc](https://python-api-demo-with-database.onrender.com/redoc)
+    ![API Redoc](sample-output/API%20Redoc.png)
+  
+- **OpenAPI JSON:** [https://python-api-demo-with-database.onrender.com/openapi.json](https://python-api-demo-with-database.onrender.com/openapi.json)
     Expected Result: Output JSON [should look like this.](sample-output/openapi_spec.json)
 
-- **Health check:** [https://python-api-demo-with-database.onrender.com/health](https://python-api-demo-with-database.onrender.com/health)  
-
+- **Health check:** [https://python-api-demo-with-database.onrender.com/health](https://python-api-demo-with-database.onrender.com/health)
     For the health check you should see: `{"status":"ok"}` as a response. This means the API is working as intended. If not, then there is an issue. 
 
 ### Example Endpoints
