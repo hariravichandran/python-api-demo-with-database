@@ -132,7 +132,7 @@ When you visit a link, it may take **30–60 seconds** to spin back up before th
 - **ReDoc:** [https://python-api-demo-with-database.onrender.com/redoc](https://python-api-demo-with-database.onrender.com/redoc)  
 - **OpenAPI JSON:** [https://python-api-demo-with-database.onrender.com/openapi.json](https://python-api-demo-with-database.onrender.com/openapi.json)  
     
-    Expected Result:
+    Expected Result: Output JSON [should look like this.](sample-output/openapi_spec.json)
 
 - **Health check:** [https://python-api-demo-with-database.onrender.com/health](https://python-api-demo-with-database.onrender.com/health)  
 
