@@ -133,12 +133,10 @@ When you visit a link, it may take **30–60 seconds** to spin back up before th
 - **OpenAPI JSON:** [https://python-api-demo-with-database.onrender.com/openapi.json](https://python-api-demo-with-database.onrender.com/openapi.json)  
     
     Expected Result:
-      ```
-{"openapi":"3.1.0","info":{"title":"Demo Aggregation API","version":"0.1.0"},"paths":{"/health":{"get":{"summary":"Health","operationId":"health_health_get","responses":{"200":{"description":"Successful Response","content":{"application/json":{"schema":{}}}}}}},"/report/customer-orders":{"get":{"summary":"Customer Orders Report","operationId":"customer_orders_report_report_customer_orders_get","parameters":[{"name":"customer_id","in":"query","required":true,"schema":{"type":"integer","description":"Customer number","title":"Customer Id"},"description":"Customer number"},{"name":"format","in":"query","required":false,"schema":{"type":"string","pattern":"^(json|csv|excel)$","description":"json|csv|excel","default":"json","title":"Format"},"description":"json|csv|excel"}],"responses":{"200":{"description":"Successful Response","content":{"application/json":{"schema":{}}}},"422":{"description":"Validation Error","content":{"application/json":{"schema":{"$ref":"#/components/schemas/HTTPValidationError"}}}}}}}},"components":{"schemas":{"HTTPValidationError":{"properties":{"detail":{"items":{"$ref":"#/components/schemas/ValidationError"},"type":"array","title":"Detail"}},"type":"object","title":"HTTPValidationError"},"ValidationError":{"properties":{"loc":{"items":{"anyOf":[{"type":"string"},{"type":"integer"}]},"type":"array","title":"Location"},"msg":{"type":"string","title":"Message"},"type":{"type":"string","title":"Error Type"}},"type":"object","required":["loc","msg","type"],"title":"ValidationError"}}}}```
 
 - **Health check:** [https://python-api-demo-with-database.onrender.com/health](https://python-api-demo-with-database.onrender.com/health)  
 
-    For the health check you should see: `{"status":"ok"}`. 
+    For the health check you should see: `{"status":"ok"}` as a response. This means the API is working as intended. If not, then there is an issue. 
 
 ### Example Endpoints
 - JSON (customer 1):  
